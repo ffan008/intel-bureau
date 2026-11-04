@@ -3,6 +3,7 @@
 > **第一次用？先看 [新手使用说明.md](新手使用说明.md)（或双击打开「新手使用说明.html」）。**
 > **Windows**：双击「一键安装并启动.bat」。**macOS**：双击「一键安装并启动.command」（详见 [docs/SETUP_MAC.md](docs/SETUP_MAC.md)）。
 > 想接微信 / QQ / 飞书，再双击「安装接入工具.bat」（三个工具已随包带好，许可证见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)）。
+> **macOS 要安装包（双击即用、不用终端）**：`bash scripts/build-macos-app.sh` 生成 `.app` + `.dmg`，详见 [docs/BUILD_MAC_APP.md](docs/BUILD_MAC_APP.md)。
 
 每天按你设定的时间，从你加入白名单的**微信群、QQ 群、飞书群**采集消息，提炼出有价值的情报，生成「每日风向标」，推送到飞书 / 微信 / QQ / 邮箱（可多选），并在本地的「AI Agent 作战大屏」里实时展示整个过程。
 

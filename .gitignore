@@ -18,6 +18,11 @@ web/node_modules/
 web/dist/
 web/.vite/
 
+# macOS 安装包构建产物（脚本生成，不进仓库；appicon.icns 要提交，打包时直接复用）
+dist-app/
+build-app/
+pack/appicon.png
+
 *.log
 Thumbs.db
 .DS_Store
