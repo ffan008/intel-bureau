@@ -1,0 +1,119 @@
+/* 基础排版与重置 */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: var(--bg-0);
+  color: var(--text-0);
+  font-family: var(--font-cn);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  overflow: hidden;
+}
+
+#app {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  background: none;
+  border: 0;
+  padding: 0;
+}
+
+a {
+  color: var(--cyan);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+::selection {
+  background: rgba(34, 228, 255, 0.28);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 1px solid var(--cyan);
+  outline-offset: 2px;
+}
+
+/* 滚动条：细、暗，只在日志终端和普通页面里出现 */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(80, 200, 255, 0.28) transparent;
+}
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(80, 200, 255, 0.25);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* 文字工具类 */
+.num {
+  font-family: var(--font-num);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+}
+.disp {
+  font-family: var(--font-display);
+  letter-spacing: 2px;
+}
+.ui {
+  font-family: var(--font-ui);
+}
+.dim {
+  color: var(--text-2);
+}
+.muted {
+  color: var(--text-1);
+}
+.ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.c-cyan { color: var(--cyan); }
+.c-green { color: var(--green); }
+.c-amber { color: var(--amber); }
+.c-red { color: var(--red); }
+.c-magenta { color: var(--magenta); }
+.c-violet { color: var(--violet); }
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

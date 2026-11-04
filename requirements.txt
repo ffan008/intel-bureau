@@ -1,0 +1,16 @@
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+pydantic==2.10.4
+httpx==0.28.1
+PyYAML==6.0.2
+APScheduler==3.11.0
+python-dateutil==2.9.0.post0
+jieba==0.42.1
+tzdata==2025.2
+tzlocal==5.4.5
+# v2：群文件正文解析（PDF / Word / Excel / PPT）；Pillow 随 python-pptx 安装，用于图片缩放
+pypdf==6.21.4
+python-docx==1.2.0
+openpyxl==3.1.5
+python-pptx==1.0.2
+pillow==13.0.0

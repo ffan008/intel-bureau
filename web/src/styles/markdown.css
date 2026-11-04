@@ -1,0 +1,122 @@
+/* 报告阅读器的深色排版（v-html 渲染的内容已经过 DOMPurify） */
+.md { font-size: 14.5px; line-height: 1.85; color: var(--text-1); word-break: break-word; }
+.md > :first-child { margin-top: 0; }
+.md h1 { margin: 0 0 14px; font-size: 24px; line-height: 1.4; color: var(--text-0); font-weight: 700; letter-spacing: 0.5px; }
+.md h2 {
+  position: relative;
+  margin: 34px 0 14px;
+  padding: 0 0 8px 14px;
+  font-size: 18px;
+  color: var(--text-0);
+  font-weight: 700;
+  border-bottom: 1px solid var(--line);
+}
+.md h2::before { content: ''; position: absolute; left: 0; top: 5px; width: 4px; height: 16px; background: var(--cyan); box-shadow: 0 0 8px var(--cyan); }
+.md h3 { margin: 26px 0 10px; font-size: 16px; color: #d6ecff; font-weight: 700; }
+.md h4 { margin: 18px 0 8px; font-size: 14.5px; color: var(--text-0); }
+.md p { margin: 10px 0; }
+.md strong { color: var(--text-0); font-weight: 700; }
+.md em { color: #cfe4f7; }
+.md a { color: var(--cyan); border-bottom: 1px dashed rgba(34, 228, 255, 0.45); }
+.md a:hover { text-decoration: none; border-bottom-style: solid; }
+.md a::after { content: ' ↗'; font-size: 11px; opacity: 0.6; }
+/* 站内锚点（#article-3 等）不是外链，不加箭头 */
+.md a[href^="#"]::after { content: none; }
+.md a[href^="#"] { border-bottom-style: solid; border-bottom-color: rgba(34, 228, 255, 0.3); }
+.md .link-blocked { color: var(--amber); border-bottom: 1px dashed rgba(255, 176, 32, 0.5); cursor: not-allowed; }
+.md .link-blocked::after { content: '（已拦截非 http/https 链接）'; font-size: 11px; color: var(--text-2); margin-left: 4px; }
+.md .md-img { color: var(--text-2); font-size: 12.5px; }
+.md ul, .md ol { margin: 8px 0; padding-left: 24px; }
+.md li { margin: 4px 0; }
+.md li::marker { color: var(--cyan-dim); font-family: var(--font-num); font-size: 12.5px; }
+.md hr { border: 0; height: 1px; background: linear-gradient(90deg, var(--line-strong), transparent); margin: 24px 0; }
+.md blockquote {
+  margin: 10px 0;
+  padding: 8px 14px;
+  border-left: 2px solid var(--cyan);
+  background: linear-gradient(90deg, rgba(34, 228, 255, 0.07), rgba(4, 12, 28, 0.3));
+  color: var(--text-0);
+}
+.md blockquote p { margin: 2px 0; }
+.md blockquote p + p { font-size: 12px; color: var(--text-2); }
+.md > blockquote:first-of-type { border-left-color: var(--violet); background: linear-gradient(90deg, rgba(139, 92, 255, 0.1), rgba(4, 12, 28, 0.3)); font-size: 13px; color: var(--text-1); }
+.md code {
+  display: inline-block;
+  padding: 0 7px;
+  margin: 0 2px;
+  font-family: var(--font-cn);
+  font-size: 12px;
+  line-height: 20px;
+  color: var(--text-1);
+  background: rgba(80, 200, 255, 0.08);
+  border: 1px solid rgba(80, 200, 255, 0.16);
+  border-radius: 10px;
+}
+.md pre { padding: 12px 14px; background: rgba(0, 3, 9, 0.8); border: 1px solid var(--line); overflow: auto; }
+.md pre code { display: block; border: 0; background: none; padding: 0; border-radius: 0; font-family: var(--font-num); font-size: 12.5px; line-height: 1.6; }
+.md .md-table { margin: 12px 0; overflow-x: auto; border: 1px solid var(--line); }
+.md table { width: 100%; border-collapse: collapse; font-size: 13px; line-height: 1.6; }
+.md th { padding: 8px 10px; text-align: left; font-weight: 600; color: var(--text-0); background: rgba(34, 228, 255, 0.07); border-bottom: 1px solid var(--line-strong); white-space: nowrap; }
+.md td { padding: 7px 10px; border-bottom: 1px solid rgba(80, 200, 255, 0.07); vertical-align: top; }
+.md tr:hover td { background: rgba(34, 228, 255, 0.03); }
+
+/* ───────── v2 阅读模式（专题文章、板块、知识库）：正文 16px、行高 1.8、最大 760px ───────── */
+.md.read { max-width: 760px; font-size: 16px; line-height: 1.8; color: #c9dcee; }
+.md.read p { margin: 0 0 14px; }
+.md.read h1 { font-size: 26px; }
+.md.read h2 { margin: 38px 0 14px; font-size: 20px; scroll-margin-top: 70px; }
+.md.read h2::before { top: 7px; height: 18px; }
+.md.read h3 { margin: 26px 0 10px; font-size: 17px; scroll-margin-top: 70px; }
+.md.read li { margin: 6px 0; }
+.md.read ol > li::marker { font-size: 14px; }
+.md.read blockquote { margin: 12px 0 16px; padding: 10px 16px; font-size: 15px; line-height: 1.75; color: #dbe9f6; }
+.md.read blockquote p { margin: 0; }
+.md.read blockquote p + p { margin-top: 4px; font-size: 13px; color: var(--text-2); }
+.md.read > blockquote:first-of-type { border-left-color: var(--cyan); background: linear-gradient(90deg, rgba(34, 228, 255, 0.07), rgba(4, 12, 28, 0.3)); font-size: 15px; color: #dbe9f6; }
+.md.read code { font-family: var(--font-num); font-size: 13.5px; line-height: 1.5; padding: 1px 6px; border-radius: 3px; display: inline; }
+.md.read .md-table table { font-size: 14px; }
+.md.read .md-hook { padding: 12px 16px; font-size: 16.5px; color: var(--text-0); background: rgba(139, 92, 255, 0.08); border-left: 2px solid var(--violet); }
+
+/* 代码块：工具条（类型 · 字数 · 复制） */
+.md .md-code { margin: 12px 0 18px; border: 1px solid var(--line); background: rgba(0, 3, 9, 0.85); }
+.md .md-code pre { margin: 0; border: 0; background: none; padding: 12px 16px 14px; white-space: pre-wrap; word-break: break-word; }
+.md .md-code pre code, .md.read pre code { display: block; padding: 0; margin: 0; border: 0; border-radius: 0; background: none; font-size: 13.5px; line-height: 1.7; color: #d7e8f7; }
+.md .md-code-bar { display: flex; align-items: center; gap: 10px; height: 32px; padding: 0 6px 0 12px; border-bottom: 1px solid var(--line); background: rgba(34, 228, 255, 0.04); font-size: 12px; color: var(--text-2); }
+.md .md-code-bar .lang { color: var(--cyan); letter-spacing: 1px; }
+.md .md-code-bar .len { font-family: var(--font-num); font-size: 11.5px; }
+.md .md-copy { margin-left: auto; height: 24px; padding: 0 12px; font-size: 12px; color: var(--text-0); border: 1px solid var(--line-strong); border-radius: 3px; background: rgba(34, 228, 255, 0.08); }
+.md .md-copy:hover { color: var(--cyan); border-color: var(--cyan); }
+.md .md-copy.done { color: var(--green); border-color: rgba(43, 255, 154, 0.5); }
+
+/* 长内容折叠：露出开头，底部渐隐 */
+.md .md-fold { position: relative; margin: 12px 0 18px; }
+.md .md-fold > :first-child { margin-top: 0; margin-bottom: 0; }
+.md .md-fold[data-open='0'] > :first-child { max-height: 240px; overflow: hidden; -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent); mask-image: linear-gradient(180deg, #000 55%, transparent); }
+.md .md-fold-btn { display: block; margin: 6px 0 0; padding: 4px 12px; font-size: 13px; color: var(--cyan); border: 1px dashed rgba(34, 228, 255, 0.4); border-radius: 3px; }
+.md .md-fold-btn:hover { background: rgba(34, 228, 255, 0.06); }
+
+/* 扩展研究的引用编号与参考列表 */
+.md a.md-cite { border: 0; font-family: var(--font-num); font-size: 0.72em; vertical-align: super; line-height: 0; padding: 0 1px; color: var(--cyan); }
+.md a.md-cite::after { content: none; }
+.md a.md-cite:hover { color: #fff; text-decoration: underline; }
+.md .md-refs h4 { margin: 0 0 8px; font-size: 14px; color: var(--text-1); }
+.md .md-refs ol { list-style: none; padding: 0; margin: 0; font-size: 13.5px; line-height: 1.7; }
+.md .md-refs li { display: grid; grid-template-columns: 34px 1fr; gap: 4px; padding: 4px 6px; margin: 0; border-radius: 3px; scroll-margin-top: 80px; }
+.md .md-refs li .n { font-family: var(--font-num); color: var(--cyan); }
+.md .md-refs li .host { margin-left: 8px; font-size: 12px; color: var(--text-2); font-family: var(--font-num); }
+.md .md-refs li.flash { animation: md-flash 1.6s ease-out 1; }
+@keyframes md-flash { 0%, 30% { background: rgba(34, 228, 255, 0.18); } 100% { background: transparent; } }
+
+/* 风险：行内徽标与免责声明。只有「违法高危」用红色，其它是柔和的琥珀色 */
+.risk-chip { display: inline-flex; align-items: center; height: 20px; padding: 0 7px; margin: 0 2px; font-size: 12px; line-height: 1; white-space: nowrap; vertical-align: 1px;
+  color: #f2c879; background: rgba(255, 176, 32, 0.08); border: 1px solid rgba(255, 176, 32, 0.28); border-radius: 10px; }
+.risk-chip.severe { color: #ff8f99; background: rgba(255, 77, 94, 0.12); border-color: rgba(255, 77, 94, 0.55); font-weight: 600; }
+.md-disclaimer,
+.md blockquote.md-disclaimer,
+.md.read blockquote.md-disclaimer,
+.md.read > blockquote.md-disclaimer:first-of-type,
+.md.read p.md-disclaimer {
+  margin: 16px 0; padding: 10px 14px; font-size: 13.5px; line-height: 1.75; color: #d9c49a;
+  border: 1px solid rgba(255, 176, 32, 0.22); border-left: 2px solid rgba(255, 176, 32, 0.6); background: rgba(255, 176, 32, 0.045);
+}
+.md .md-disclaimer p, .md.read .md-disclaimer p { margin: 0; font-size: inherit; color: inherit; }

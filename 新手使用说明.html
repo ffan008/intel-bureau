@@ -1,0 +1,291 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>个人情报局 · 新手使用说明</title><style>
+:root{color-scheme:light dark}
+body{font:16px/1.85 "Microsoft YaHei","PingFang SC",system-ui,sans-serif;max-width:820px;margin:0 auto;padding:32px 20px 80px;color:#1c2330;background:#f7f9fc}
+h1{font-size:30px;margin:0 0 6px;color:#0b4f6c}h2{margin-top:44px;padding-bottom:6px;border-bottom:2px solid #cfe3ee;color:#0b4f6c}
+h3{margin-top:28px}blockquote{margin:16px 0;padding:10px 16px;background:#e8f4fa;border-left:4px solid #1b9cc9;border-radius:4px;color:#26475a}
+blockquote p{margin:6px 0}table{border-collapse:collapse;width:100%;margin:14px 0;font-size:15px}
+th,td{border:1px solid #cdd8e2;padding:8px 12px;text-align:left;vertical-align:top}th{background:#e3edf5}
+code{background:#e9eef4;padding:1px 6px;border-radius:4px;font:14px Consolas,monospace}
+a{color:#0b6fa8}hr{border:0;border-top:1px solid #d5dee7;margin:36px 0}li{margin:4px 0}
+@media (prefers-color-scheme:dark){body{background:#0f1620;color:#d7e1ec}h1,h2{color:#6fd3f5}h2{border-color:#25405a}
+blockquote{background:#12293a;color:#bcd8e6}th{background:#1a2b3c}th,td{border-color:#2b4157}code{background:#1d2b3a}a{color:#7cc7ec}}
+</style></head><body><h1>个人情报局 · 新手使用说明</h1>
+<blockquote>
+<p>这份说明写给<strong>第一次用、不懂代码</strong>的人。照着做，10 分钟内能在自己电脑上看到完整的作战大屏。</p>
+</blockquote>
+<h2>它是什么</h2>
+<p>每天在你设定的时间，自动读取你<strong>自己加入白名单的群聊</strong>，把里面有价值的信息整理成一份「每日风向标」：</p>
+<ul>
+<li>多篇<strong>专题知识文章</strong>（带群里的原话、提示词原文、联网查到的补充资料和来源）</li>
+<li><strong>资源库</strong>（GitHub 项目、网盘链接和提取码、公众号文章……）</li>
+<li><strong>知识库</strong>（同一个话题跨天自动合并更新，可以搜索）</li>
+<li>图片里的文字、群里发的文档内容，也会被提炼进去</li>
+</ul>
+<p>整个程序<strong>只在你自己的电脑上运行</strong>，不会上传你的聊天记录。</p>
+<hr>
+<h2>一、你需要准备什么</h2>
+<table>
+<thead>
+<tr>
+<th>需要</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Windows 10 / 11，或苹果电脑（macOS 12 以上）</td>
+<td>苹果电脑用 <code>.command</code> 版本，见下面「苹果电脑怎么装」</td>
+</tr>
+<tr>
+<td>能上网</td>
+<td>第一次安装要下载 Python 依赖，大约 100 MB（微信、QQ、飞书的接入工具已经随包带好，不用再下）</td>
+</tr>
+<tr>
+<td>约 1.5 GB 空闲磁盘</td>
+<td>压缩包约 460 MB，解压加安装后会更大</td>
+</tr>
+<tr>
+<td>Python 3.12 以上</td>
+<td>没有的话，安装步骤里会教你装，见下一节</td>
+</tr>
+<tr>
+<td>（可选）一个 DeepSeek 账号</td>
+<td>想让 AI 帮你写专题文章才需要，不配也能用，见第五节</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>不需要装 Node.js：前端已经做好了，飞书的 lark-cli 也是随包带的现成程序。</p>
+</blockquote>
+<h3>苹果电脑怎么装</h3>
+<p>双击 <strong>「一键安装并启动.command」</strong>，后面的流程和 Windows 一样：自动装依赖、写入演示数据、打开大屏。
+第一次打开如果提示「无法验证开发者」，在文件上<strong>右键 →「打开」</strong>即可。</p>
+<blockquote>
+<p><strong>注意</strong>：<strong>飞书、微信在苹果电脑上都能直连</strong>。微信要装
+<strong>WeChatDataAnalysis 的 mac 版</strong>（<code>-mac-arm64.dmg</code>），打开它并解密账号，再到「情报源 → 微信 → 测试连接」；
+它的 API Token <strong>留空就行</strong>，程序会自己读。QQ 的采集工具是 Windows 程序，Mac 上用
+「导入聊天记录」（把 JSON / CSV / txt 拖进「情报源」的导入区）。完整说明见 <code>docs/SETUP_MAC.md</code>。</p>
+</blockquote>
+<hr>
+<h2>二、安装（只做一次）</h2>
+<h3>第 1 步：解压</h3>
+<p>把收到的压缩包<strong>解压到一个简单的位置</strong>，比如 <code>D:\情报局</code> 或 <code>D:\IntelBureau</code>。</p>
+<ul>
+<li>路径里尽量不要有空格和特殊符号。</li>
+<li>不要放在「桌面」「下载」「OneDrive」「Program Files」里，容易因为权限或同步出问题。</li>
+</ul>
+<h3>第 2 步：装 Python 3.12（已经装过就跳过）</h3>
+<ol>
+<li>打开 <a href="https://www.python.org/ftp/python/3.12.10/python-3.12.10-amd64.exe">https://www.python.org/ftp/python/3.12.10/python-3.12.10-amd64.exe</a> 下载安装程序。</li>
+<li>双击运行，<strong>第一个界面最下面一定要勾选「Add python.exe to PATH」</strong>，然后点 <strong>Install Now</strong>。</li>
+<li>装完点 Close。</li>
+</ol>
+<blockquote>
+<p>版本要求是 <strong>3.12</strong>。装了 3.13 或更新版本的话，请另外再装一个 3.12。</p>
+</blockquote>
+<h3>第 3 步：双击「一键安装并启动.bat」</h3>
+<ul>
+<li>会弹出一个黑色窗口，自动完成：检查 Python → 下载并安装依赖 → 写入一份<strong>演示数据</strong> → 启动。</li>
+<li><strong>第一次大约 2~5 分钟</strong>，期间会显示英文进度，不用管，也不要关窗口。</li>
+<li>完成后会自动弹出浏览器窗口，进入<strong>作战大屏</strong>。</li>
+</ul>
+<blockquote>
+<p>如果 Windows 弹出「已保护你的电脑」（SmartScreen）：点「更多信息」→「仍要运行」。
+如果黑窗口一闪就没了：右键「一键安装并启动.bat」→ 以普通方式再运行一次，并留意窗口里的红字提示。</p>
+</blockquote>
+<h3>以后怎么打开</h3>
+<p>再次双击「<strong>启动情报局.bat</strong>」就行（比一键安装快很多）。苹果电脑双击「<strong>启动情报局.command</strong>」。</p>
+<ul>
+<li>黑色窗口<strong>要一直开着</strong>，关掉它，工作台就停了。</li>
+<li>想让它开机自动在后台跑：在文件夹空白处按住 Shift 右键 →「在此处打开 PowerShell 窗口」，输入
+<code>powershell -ExecutionPolicy Bypass -File scripts\install-autostart.ps1</code> 回车。取消的话把 <code>install</code> 换成 <code>uninstall</code>。</li>
+<li>苹果电脑：双击「<strong>开机自启设置.command</strong>」，选 1 设置自启，选 2 取消。</li>
+</ul>
+<hr>
+<h2>三、先看一遍演示数据</h2>
+<p>第一次打开时，里面的群、对话、人名<strong>全是虚构的演示数据</strong>，用来让你熟悉界面。左侧是导航：</p>
+<table>
+<thead>
+<tr>
+<th>页面</th>
+<th>用来做什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>作战大屏</td>
+<td>一屏看全局：各平台状态、群热度、情报星图、头条、实时日志。点右上角「立即出报」能看到整个流水线跑一遍</td>
+</tr>
+<tr>
+<td>情报档案</td>
+<td>每一份「每日风向标」。左边选日期，右边用<strong>标签页切换</strong>：今日总览、专题文章、资源库、提示词原文、方法与 SOP、工具与模型、收益与数据、风险与踩坑、金句、图片与文档、分群摘要、快讯</td>
+</tr>
+<tr>
+<td>知识库</td>
+<td>所有专题文章的长期沉淀，可搜索、按分类和标签筛选，能看每篇的历史版本</td>
+</tr>
+<tr>
+<td>情报源</td>
+<td>连接微信 / QQ / 飞书，勾选要关注的群（白名单），或导入聊天记录文件</td>
+</tr>
+<tr>
+<td>调度中心</td>
+<td>设置每天几点自动出报</td>
+</tr>
+<tr>
+<td>推送通道</td>
+<td>设置报告发到哪里（飞书、微信、邮箱等）</td>
+</tr>
+<tr>
+<td>智能体</td>
+<td>选择 AI 模型、云端同意、兴趣词、提示词</td>
+</tr>
+<tr>
+<td>系统</td>
+<td>体检；写入或<strong>清除演示数据</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>用自己的数据之前</strong>：到「系统」页点「<strong>清除演示数据</strong>」。它只删演示的内容，不影响你之后接入的真实数据。</p>
+</blockquote>
+<hr>
+<h2>四、接入你自己的群（三选一，从最简单的开始）</h2>
+<h3>方法 A：导入聊天记录文件（最简单，推荐先试）</h3>
+<p>不需要登录任何账号。把导出的聊天记录文件（JSON、CSV，或从微信里复制出来的文字）拖进「<strong>情报源</strong>」页面右上角的导入区即可，或放进 <code>data\inbox\微信</code> 这样的文件夹。支持哪些格式，见 <code>docs\SETUP_WECHAT.md</code> 里的「导入聊天记录」一节。</p>
+<h3>方法 B：直接读取微信 / QQ / 飞书（可以每天自动更新）</h3>
+<p>这一步稍微复杂，每个平台一份图文步骤，照着做：</p>
+<table>
+<thead>
+<tr>
+<th>平台</th>
+<th>文档</th>
+<th>一句话说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>微信</td>
+<td><code>docs\SETUP_WECHAT.md</code></td>
+<td>读取电脑上微信的本地聊天记录（只读，不登录、不发消息）。需要电脑登录着微信 PC 版</td>
+</tr>
+<tr>
+<td>QQ</td>
+<td><code>docs\SETUP_QQ.md</code></td>
+<td>通过 NapCat 读取。<strong>强烈建议用一个小号</strong>，避免主号被平台风控</td>
+</tr>
+<tr>
+<td>飞书</td>
+<td><code>docs\SETUP_FEISHU.md</code></td>
+<td>用飞书官方命令行工具，在浏览器里点一次授权</td>
+</tr>
+</tbody>
+</table>
+<p><strong>三个接入工具已经随包带好了，不用再去网上下载</strong>，放在 <code>third_party\tools</code> 里。想接哪个平台，就双击根目录的「<strong>安装接入工具.bat</strong>」，在菜单里选：</p>
+<table>
+<thead>
+<tr>
+<th>菜单</th>
+<th>工具</th>
+<th>它会帮你做什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 微信</td>
+<td>WeChatDataAnalysis</td>
+<td>先校验安装程序没有损坏，再打开它的安装向导，一路下一步即可（约 380 MB）</td>
+</tr>
+<tr>
+<td>2 QQ</td>
+<td>NapCatQQ</td>
+<td>校验并解压，然后告诉你下一步怎么登录小号、怎么设置</td>
+</tr>
+<tr>
+<td>3 飞书</td>
+<td>lark-cli</td>
+<td>确认它能运行，然后带你完成「配置应用」和「授权」两步</td>
+</tr>
+<tr>
+<td>4</td>
+<td>三个都准备</td>
+<td>依次做上面三件事</td>
+</tr>
+</tbody>
+</table>
+<p>只用「方法 A」导入文件的话，这一步可以完全跳过。</p>
+<blockquote>
+<p>这三个都是第三方开源软件，版权和许可归原作者所有，许可证全文见根目录的 <code>THIRD_PARTY_NOTICES.md</code>。NapCatQQ 的许可证<strong>禁止商业使用</strong>，请仅用于个人学习和朋友间使用。</p>
+</blockquote>
+<p>接好之后：「情报源」页 → 点「<strong>刷新群列表</strong>」→ <strong>只把你想关注的群打开白名单开关</strong>。没打开的群不会被读取，也不会存储。</p>
+<blockquote>
+<p><strong>请只读取你自己账号里的群聊。</strong> 使用前请确认符合各平台的使用条款和相关法律，并尊重群友隐私。</p>
+</blockquote>
+<h3>然后：设置每天几点出报</h3>
+<p>「<strong>调度中心</strong>」里默认有一个「晨报」，每天 08:00 运行。可以改时间、选平台、选推送到哪里。点「<strong>立即运行</strong>」可以马上跑一次试试。</p>
+<blockquote>
+<p>定时任务要求<strong>电脑开着、工作台在运行</strong>。电脑关机错过的任务，下次启动时会自动补跑一次。</p>
+</blockquote>
+<hr>
+<h2>五、让 AI 帮你写专题文章（可选，但效果好很多）</h2>
+<p>不配 AI 也能用：这时用的是<strong>离线规则</strong>，只会把群里的原话摘录出来，没有&quot;扩展研究&quot;。想要完整的专题文章，需要一个 AI 模型：</p>
+<ol>
+<li>到 <a href="https://platform.deepseek.com/">https://platform.deepseek.com/</a> 注册，充值几块钱，在「API Keys」里创建一个 Key 并复制（以 <code>sk-</code> 开头）。</li>
+<li>回到工作台 →「<strong>智能体</strong>」页：
+<ul>
+<li>模型提供方选「<strong>OpenAI 兼容接口</strong>」，预设选「<strong>DeepSeek</strong>」。</li>
+<li>把 Key 粘贴到「API Key」，点「<strong>测试调用</strong>」，看到成功就对了，再点「保存」。</li>
+</ul>
+</li>
+<li>在同一页打开「<strong>云端同意</strong>」开关。
+<ul>
+<li><strong>这一步很重要</strong>：打开后，白名单群里的聊天内容才会发给 DeepSeek 的服务器去处理；不打开的话，系统会一直用离线规则，不会外发。</li>
+<li>手机号、邮箱、证件号、银行卡号等会在发送前自动打码。</li>
+</ul>
+</li>
+<li>建议把「<strong>单次费用上限</strong>」设成一个数（比如 5 元），超过后自动改用离线规则，不会花超。</li>
+</ol>
+<blockquote>
+<p><strong>大概花多少钱？</strong> 取决于你关注多少个群、每天消息多不多。参考：关注约 60 个活跃群，一次完整运行大约 1~2 元。关注几个群的话要少得多。具体以 DeepSeek 官网价格为准。</p>
+</blockquote>
+<hr>
+<h2>六、隐私与安全，请务必看</h2>
+<ul>
+<li><strong>聊天记录只存在你这台电脑上</strong>（<code>data</code> 文件夹）。只有你打开「云端同意」并配置了 AI，才会把白名单群的内容发给你选的 AI 服务商。</li>
+<li><strong>API Key、推送口令</strong>保存在 <code>config\secrets.yaml</code>，<strong>不要发给别人</strong>。</li>
+<li>如果你要把这个文件夹再转发给别人：<strong>先删掉 <code>data</code> 文件夹和 <code>config\secrets.yaml</code>、<code>config\settings.yaml</code></strong>，里面有你的聊天记录和密钥。</li>
+<li>工作台只监听本机地址（127.0.0.1），同一个 Wi-Fi 下的其他人访问不到。</li>
+<li>程序<strong>只读</strong>聊天记录，不会替你发消息、不会改动你的微信 / QQ / 飞书。</li>
+</ul>
+<hr>
+<h2>七、常见问题</h2>
+<p><strong>双击 bat 后窗口一闪就没了。</strong>
+先确认已经解压（不要在压缩包里直接双击）。再试：在文件夹空白处按住 Shift 右键 →「在此处打开 PowerShell 窗口」，输入 <code>.\一键安装并启动.bat</code> 回车，窗口不会自动关闭，能看到错误信息。</p>
+<p><strong>提示「没有找到 Python 3.12」。</strong>
+按第二节第 2 步安装，<strong>一定要勾选 Add python.exe to PATH</strong>，装完关掉窗口重来。如果你的电脑装过 Python 但还是找不到，可能装的是别的版本，另外装一个 3.12 即可。</p>
+<p><strong>提示「无法加载文件……因为在此系统上禁止运行脚本」。</strong>
+用我们提供的 bat 文件启动不会遇到这个问题。如果你是手动输入命令，请带上 <code>-ExecutionPolicy Bypass</code>。</p>
+<p><strong>安装卡住、下载很慢或失败。</strong>
+这一步要从网上下载依赖，换个网络，或者开关一下代理，然后重新双击「一键安装并启动.bat」，会接着装。</p>
+<p><strong>浏览器页面打不开 / 显示「服务已启动」提示页。</strong>
+确认黑色窗口还开着。手动在浏览器地址栏输入 <code>http://127.0.0.1:8765</code> 试试。</p>
+<p><strong>端口被占用，提示 8765。</strong>
+说明已经有一个工作台在运行了，直接打开 <code>http://127.0.0.1:8765</code> 即可；或者先关掉旧的黑色窗口。</p>
+<p><strong>点了「安装接入工具.bat」，提示校验不一致。</strong>
+说明压缩包在传输中损坏了。请让对方重新发一次完整的压缩包，不要用「已损坏」的文件。</p>
+<p><strong>报告里都是&quot;程序从原文摘录&quot;，不够流畅。</strong>
+说明还在用离线规则。按第五节配置 AI 并打开「云端同意」。</p>
+<p><strong>怎么停止？</strong>
+关掉那个黑色窗口。</p>
+<p><strong>怎么升级？</strong>
+把新版本解压到<strong>新文件夹</strong>，再把旧文件夹里的 <code>data</code> 和 <code>config</code> 两个文件夹复制过去覆盖即可。</p>
+<p><strong>我想看某个功能的详细说明。</strong>
+文件夹里的 <code>README.md</code> 是总览，<code>docs</code> 文件夹里有各平台接入、推送通道、接口等详细文档。</p>
+<hr>
+<h2>八、免责声明</h2>
+<ul>
+<li>本工具只用于<strong>个人整理自己有权访问的信息</strong>。请遵守各平台服务条款和相关法律法规，尊重他人隐私，不要用于采集你无权读取的内容。</li>
+<li>报告里的内容整理自群聊讨论和公开资料，可能有错误或过时的信息；涉及平台规则、账号和资金的做法可能违反服务条款或带来损失，<strong>是否采用请自行判断并承担责任</strong>。</li>
+<li>联网搜索到的资料来源于第三方，使用时请核对原始出处。</li>
+</ul>
+</body></html>

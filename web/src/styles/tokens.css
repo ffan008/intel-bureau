@@ -1,0 +1,50 @@
+/* 设计令牌：UI_DESIGN §1。只放变量，不放规则。 */
+:root {
+  --bg-0: #03060f;
+  --bg-1: #060b1a;
+  --bg-2: #0a1428;
+  --panel: rgba(10, 22, 46, 0.55);
+  --panel-strong: rgba(12, 26, 54, 0.78);
+  --line: rgba(80, 200, 255, 0.18);
+  --line-strong: rgba(80, 220, 255, 0.45);
+
+  --cyan: #22e4ff;
+  --cyan-dim: #0b8fb3;
+  --violet: #8b5cff;
+  --magenta: #ff3db8;
+  --amber: #ffb020;
+  --green: #2bff9a;
+  --red: #ff4d5e;
+
+  --text-0: #eaf6ff;
+  --text-1: #a9c4dd;
+  --text-2: #6c86a3;
+
+  --wechat: #2bd96b;
+  --qq: #2aa8ff;
+  --feishu: #4f7cff;
+  --demo: #b48cff;
+
+  --glow-cyan: 0 0 12px rgba(34, 228, 255, 0.55), 0 0 32px rgba(34, 228, 255, 0.18);
+  --radius: 4px;
+  --font-display: 'Orbitron', 'Rajdhani', sans-serif;
+  --font-num: 'JetBrains Mono', 'Rajdhani', monospace;
+  --font-cn: 'HarmonyOS Sans SC', 'PingFang SC', 'Microsoft YaHei UI', 'Microsoft YaHei', sans-serif;
+
+  /* 派生令牌（在规格基础上补充，保持同一套色相） */
+  --font-ui: 'Rajdhani', var(--font-cn);
+  --cyan-a08: rgba(34, 228, 255, 0.08);
+  --cyan-a15: rgba(34, 228, 255, 0.15);
+  --cyan-a30: rgba(34, 228, 255, 0.3);
+  --violet-a20: rgba(139, 92, 255, 0.2);
+  --magenta-a20: rgba(255, 61, 184, 0.2);
+  --amber-a20: rgba(255, 176, 32, 0.2);
+  --green-a20: rgba(43, 255, 154, 0.2);
+  --red-a20: rgba(255, 77, 94, 0.2);
+  --glow-text: 0 0 8px rgba(34, 228, 255, 0.55);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --t-fast: 160ms;
+  --t-mid: 280ms;
+  --shadow-pop: 0 18px 48px rgba(0, 0, 0, 0.55), 0 0 0 1px var(--line);
+}

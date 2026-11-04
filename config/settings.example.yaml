@@ -1,0 +1,145 @@
+# 情报局工作台 · 设置样例（不含密钥）
+# 首次运行时复制为 config/settings.yaml。密钥放在 config/secrets.yaml（自动生成，已 gitignore）。
+
+app:
+  host: 127.0.0.1          # 只监听本机，不要改成 0.0.0.0
+  port: 8765
+  timezone: Asia/Shanghai
+  fx_level: high           # 大屏特效强度：high / medium / low / off
+  open_browser: true
+  dashboard_url: http://127.0.0.1:8765
+  catchup_enabled: true    # 启动时补跑因关机错过的定时任务
+  catchup_max_hours: 36    # 只补跑这么久以内错过的任务
+  health_interval_sec: 300 # 平台健康检查间隔
+  demo_stage_min_ms: 1100  # 大屏上的演示运行每个阶段最短展示多久（毫秒），0 表示不放慢；真实运行不受影响
+  allowed_hosts: []        # 额外允许的 Host 头（一般不用填）
+
+sources:
+  wechat:
+    enabled: false
+    adapter: wechat.wda
+    wda:
+      base_url: http://127.0.0.1:10392
+    weflow:
+      base_url: http://127.0.0.1:5031
+    file_import: {}
+  qq:
+    enabled: false
+    adapter: qq.onebot
+    onebot:
+      base_url: http://127.0.0.1:3010
+    file_import: {}
+  feishu:
+    enabled: false
+    adapter: feishu.lark_cli
+    lark_cli:
+      identity: user
+    file_import: {}
+  demo:
+    synthetic:
+      scale: 1.0
+  collect:
+    concurrency_per_platform: 2
+    max_lookback_hours: 72
+    first_run_hours: 24
+    per_group_limit: 5000
+
+llm:
+  provider: auto           # auto / claude_code / openai_compat / anthropic / offline
+  temperature: 0.2
+  max_tokens: 8192
+  concurrency: 3
+  max_chunks: 40           # 每次运行最多交给模型的块数，其余用 offline 规则提取
+  max_cost_cny: 5          # 单次运行的模型费用上限（元，按 token 估算），到达后剩余部分改用离线规则；0 表示不限
+  chunk_chars: 6000        # 单块字数上限
+  cache: true
+  fx_usd_cny: 7.2          # 费用估算用的汇率
+  merge_judge: false       # 拿不准的合并交给模型判断
+  claude_code:
+    command: claude        # 可写绝对路径
+    model: ""              # 留空用 CLI 默认模型
+    timeout_sec: 180
+    concurrency: 2
+    use_json_schema: true
+  openai_compat:
+    preset: deepseek       # deepseek / dashscope / moonshot / zhipu / siliconflow / openrouter / ollama / custom
+    base_url: ""           # 留空用预设地址
+    model: ""              # 留空用预设模型
+    json_mode: true
+    timeout_sec: 120
+    price_in_per_m: 0      # 每百万输入 token 价格（元），用于费用估算
+    price_out_per_m: 0
+  anthropic:
+    base_url: https://api.anthropic.com
+    model: ""
+    timeout_sec: 120
+    price_in_per_m: 0
+    price_out_per_m: 0
+
+pipeline:
+  top_n: 5
+  max_features: 12         # v2：每天的专题文章篇数（8~15）
+  group_digest_min_msgs: 30   # 分群摘要：消息数达到这个数的群才写卡片
+  group_digest_max: 12        # 分群摘要最多写几个群
+  segment_gap_minutes: 20
+  merge_threshold: 0.35
+  min_quote_chars: 4
+  weights:
+    novelty: 1.0
+    actionability: 1.2
+    credibility: 1.0
+    heat: 0.9
+    relevance: 1.1
+  risk_policy: label       # label：只标注风险、附免责声明，不扣分（v2 默认）；flag：标注并降权（v1）；drop：直接剔除
+  risk_penalty: 0          # flag 模式下每个风险标签扣的分（0~5 分制）；label 模式不扣分
+  # 不论哪种策略：「违法高危」只进风险板块、不成为专题、不做联网扩展；「隐私」整条剔除
+  repeat_penalty: 1.2
+  memory_days: 14
+  rising_z: 2.0
+  rising_min_count: 5
+  clean:
+    drop_kinds: [system, recall, redpacket, sticker]
+    min_chars: 4
+    dedupe_min_chars: 12
+    low_info_patterns:
+      - "^(收到|好的?|好滴|嗯+|哦+|噢+|哈+|嘿+|呵+|6+|666+|牛+|强|赞|谢谢?|感谢|多谢|ok|OK|okk+|对|是的?|\\+1|1+|已阅|顶|mark|Mark|学到了|厉害|太强了|插眼|蹲|蹲一个|同问|同求|求|早|早上好|晚安|在吗|在|没错|确实|有道理|可以|行|好家伙|绝了)[!！。.~～\\s]*$"
+      - "^\\[(图片|表情|动画表情|语音|视频|文件)\\]$"
+      - "拍了拍"
+    desensitize: true
+
+interests:
+  keywords: [AI 绘画, 提示词, Skill, Agent, Claude Code, Codex, 视频生成, 漫画, 起号, 变现, 公众号, 小红书, 视频号, 开源, 自动化, 工作流]
+  blocked: []
+  category_weights:
+    "01 工具与资源": 1.0
+    "02 提示词与工作流": 1.1
+    "03 AI 创作实战": 1.1
+    "04 流量与变现": 1.0
+    "05 编程与自动化": 1.0
+    "06 模型与平台动态": 0.9
+    "07 需求与机会": 1.0
+    "08 风险与避坑": 0.8
+    "99 其他": 0.6
+
+research:                  # v2：联网扩展（需要 privacy.cloud_llm_consent=true，否则跳过）
+  enabled: true
+  provider: deepseek       # deepseek / none
+  max_searches: 30         # 每次运行最多检索次数
+  max_fetches: 30          # 每次运行最多读取网页数
+  per_article_queries: 2   # 每篇专题的检索词个数（2~3）
+  github_enrich: true      # GitHub 链接补星数、语言、简介
+  x_enrich: true           # X 链接补点赞、转发
+  # 密钥在 secrets.yaml：research.deepseek_api_key（留空复用 llm.openai_compat.api_key）、research.github_token（可选）
+
+media:                     # v2：群图片和文件
+  enabled: true
+  ocr: windows             # windows（本机离线）/ llm（视觉模型，需云端同意）/ off
+  max_images: 40           # 每次运行最多取回几张图片
+  max_files: 15            # 每次运行最多取回几个文件
+  max_file_mb: 20
+
+privacy:
+  cloud_llm_consent: false # 同意后才会把群聊内容发给云端模型
+  desensitize: [phone, email, idcard, bankcard, wechat_id]
+  retention_days: 30       # 原始消息保留天数（演示数据不受影响）
+  live_preview: false      # 实时上报事件里是否带发言人和前 30 字预览

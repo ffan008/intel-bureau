@@ -1,0 +1,35 @@
+{
+  "name": "intel-bureau-web",
+  "private": true,
+  "version": "1.0.0",
+  "description": "个人情报局工作台 · AI Agent 作战大屏前端",
+  "type": "module",
+  "engines": {
+    "node": ">=20.19"
+  },
+  "scripts": {
+    "dev": "vite --port 5180 --strictPort",
+    "dev:mock": "vite --mode mock --port 5180 --strictPort",
+    "build": "vue-tsc --noEmit && vite build",
+    "typecheck": "vue-tsc --noEmit && vue-tsc --noEmit -p tsconfig.node.json",
+    "preview": "vite preview --port 5180 --strictPort"
+  },
+  "dependencies": {
+    "@fontsource/jetbrains-mono": "5.3.0",
+    "@fontsource/orbitron": "5.3.0",
+    "@fontsource/rajdhani": "5.3.0",
+    "dompurify": "3.4.17",
+    "echarts": "5.6.0",
+    "echarts-wordcloud": "2.1.0",
+    "markdown-it": "15.0.3",
+    "vue": "3.5.44",
+    "vue-router": "4.6.4"
+  },
+  "devDependencies": {
+    "@types/node": "24.19.2",
+    "@vitejs/plugin-vue": "6.0.10",
+    "typescript": "5.9.3",
+    "vite": "7.3.7",
+    "vue-tsc": "3.3.13"
+  }
+}

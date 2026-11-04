@@ -1,0 +1,87 @@
+/*
+ * 动效：只动 transform 与 opacity。
+ * 门控：.fx-loop 在「关」和 prefers-reduced-motion 下停止；
+ *       .fx-rich 在「低」档也停止（装饰性强、信息量低的循环）。
+ * 每个循环动画的静止态都必须是可读的（基础样式就是最终态）。
+ */
+@keyframes kf-breathe { 0%, 100% { opacity: 1; } 50% { opacity: 0.38; } }
+@keyframes kf-blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+@keyframes kf-alarm { 0%, 100% { opacity: 1; } 25% { opacity: 0.15; } 50% { opacity: 1; } 75% { opacity: 0.15; } }
+@keyframes kf-spin { to { transform: rotate(360deg); } }
+@keyframes kf-pulse-ring {
+  0% { transform: scale(0.82); opacity: 0.9; }
+  100% { transform: scale(1.55); opacity: 0; }
+}
+@keyframes kf-enter {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes kf-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes kf-flash { 0% { opacity: 0; } 18% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes kf-flash-twice { 0%, 50%, 100% { opacity: 0; } 15%, 65% { opacity: 1; } }
+@keyframes kf-sweep {
+  from { transform: translateX(-120%) skewX(-20deg); }
+  to { transform: translateX(260%) skewX(-20deg); }
+}
+@keyframes kf-ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes kf-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+@keyframes kf-grid-scroll { from { transform: rotateX(60deg) translateY(0); } to { transform: rotateX(60deg) translateY(60px); } }
+@keyframes kf-shimmer { 0% { opacity: 0.25; } 50% { opacity: 0.7; } 100% { opacity: 0.25; } }
+@keyframes kf-progress-indeterminate {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(250%); }
+}
+
+.hud-enter {
+  animation: kf-enter 560ms var(--ease-out-expo) both;
+}
+
+.spin { animation: kf-spin 1s linear infinite; }
+
+html[data-fx='off'] .fx-loop,
+html[data-fx='off'] .fx-loop::before,
+html[data-fx='off'] .fx-loop::after,
+html[data-fx='off'] .fx-rich,
+html[data-fx='off'] .fx-rich::before,
+html[data-fx='off'] .fx-rich::after,
+html[data-fx='off'] .hud-enter,
+html[data-fx='low'] .fx-rich,
+html[data-fx='low'] .fx-rich::before,
+html[data-fx='low'] .fx-rich::after {
+  animation: none !important;
+}
+
+html[data-fx='off'] .fx-hide-off,
+html[data-fx='low'] .fx-hide-low {
+  display: none !important;
+}
+
+/* 特效「关」：功能性过渡（抽屉、弹窗、切换）缩短到几乎瞬时，避免大幅位移动画 */
+html[data-fx='off'] *,
+html[data-fx='off'] *::before,
+html[data-fx='off'] *::after {
+  transition-duration: 1ms !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 1ms !important;
+  }
+  .fx-loop,
+  .fx-loop::before,
+  .fx-loop::after,
+  .fx-rich,
+  .fx-rich::before,
+  .fx-rich::after,
+  .hud-enter {
+    animation: none !important;
+  }
+  * {
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,55 @@
+# 情报分类体系（用户可改）。keywords 用于 offline 规则分类，也会提示给大模型。
+categories:
+  - id: "01"
+    name: 工具与资源
+    keywords: [工具, 插件, 开源, GitHub, github, 网站, 资源, 模板, 合集, 下载, 免费, 地址, 链接, 扩展, 客户端, 软件, 平台, 节点, 模型下载]
+  - id: "02"
+    name: 提示词与工作流
+    keywords: [提示词, prompt, Prompt, 工作流, 流程, 模板, 指令, Skill, skill, 技能, SOP, 节点, 参数, 关键词, 咒语, CLAUDE.md, 子代理]
+  - id: "03"
+    name: AI 创作实战
+    keywords: [出图, 绘画, 画图, 漫画, 漫剧, 视频, 分镜, 首尾帧, 角色一致性, LoRA, 风格, 手绘, 插画, 海报, 封面, 生成, 即梦, 可灵, Midjourney, ComfyUI, Flux, 剪辑, 配音]
+  - id: "04"
+    name: 流量与变现
+    keywords: [变现, 起号, 涨粉, 流量, 收益, 流量主, 赚钱, 收入, 爆款, 阅读量, 小红书, 公众号, 视频号, 抖音, 接单, 报价, 客单价, 私域, 带货, 广告]
+  - id: "05"
+    name: 编程与自动化
+    keywords: [代码, 编程, 脚本, 自动化, Claude Code, Codex, Cursor, MCP, API, Python, 部署, 爬虫, n8n, Dify, Coze, 定时, 机器人, hooks, Agent, 智能体]
+  - id: "06"
+    name: 模型与平台动态
+    keywords: [发布, 上线, 更新, 新版, 内测, 开放, 涨价, 降价, 限额, 额度, 模型, 版本, 官方, 公告, 首发]
+  - id: "07"
+    name: 需求与机会
+    keywords: [需求, 求助, 招人, 外包, 合作, 找人, 有偿, 预算, 甲方, 项目, 机会, 缺人]
+  - id: "08"
+    name: 风险与避坑
+    keywords: [封号, 风控, 避坑, 踩坑, 骗子, 违规, 限流, 退款, 被坑, 警惕, 风险, 下架, 侵权, 维权]
+  - id: "99"
+    name: 其他
+    keywords: []
+
+kinds: [教程方法, 工具资源, 数据复盘, 动态新闻, 观点判断, 需求机会, 风险预警, 问答精华]
+
+risk_flags: [合规风险, 账号风险, 金钱风险, 广告引流, 未核实]
+
+# 风险词表：命中即打对应标签（offline 提取与评分共用）
+risk_lexicon:
+  合规风险: [代过, 代开, 代充, 学生认证, 教育优惠, 破解, 盗版, 灰产, 洗稿, 搬运, 去水印, 绕过, 虚拟卡, 共享账号, 拼车, 外区, 中转 API, 中转站, 号池]
+  账号风险: [封号, 防封, 养号, 批量注册, 接码, 风控, 矩阵号, 多开, 小号批量, 指纹浏览器, 被封]
+  金钱风险: [稳赚, 日入, 月入过万, 躺赚, 保底, 回本, 押金, 先交, 包过, 带你赚, 零成本, 割韭菜, 收徒, 跑路, 3 折]
+  广告引流: [私信我, 私聊我, 加我, 加V, 加v, 加微, 进群, 扫码, 返佣, 邀请码, 优惠码, 团购, 限时, 名额有限, 课程]
+  未核实: [听说, 据说, 传闻, 好像, 内部消息, 小道消息, 未证实]
+
+# 识别为"工具名"的词（offline 提取 tools 字段）
+tools: [Claude Code, Codex, Cursor, Windsurf, Trae, ChatGPT, Claude, Gemini, DeepSeek, Kimi, 通义, 豆包, 智谱,
+        Midjourney, ComfyUI, Stable Diffusion, SD, Flux, LoRA, ControlNet, 即梦, 可灵, 海螺, Vidu, Runway, Seedance,
+        剪映, CapCut, n8n, Dify, Coze, 扣子, MCP, Notion, 飞书多维表格, 多维表格, Obsidian, Python, GitHub, Ollama,
+        WeChatDataAnalysis, NapCat, Canva, 稿定, Photoshop, 秀米, 135编辑器, 新榜]
+
+# 线索词：提高 offline 打分
+cues:
+  method: [教程, 步骤, 方法, 流程, 第一步, 第二步, 首先, 然后, 最后, 设置, 参数, 配置, 技巧, 心得, 经验, 分享一个, 分享下]
+  data: [实测, 复盘, 数据, 截图, 对比, 测试, 跑了, 统计, 收入, 涨粉, 阅读, 转化, 成本, 耗时, 花了]
+  news: [发布, 上线, 更新, 开放, 新版, 公告, 首发, 内测, 涨价, 降价]
+  demand: [求推荐, 有没有, 求助, 需要, 招, 外包, 有偿, 预算, 找人]
+  question: [怎么, 如何, 为什么, 吗？, 求问, 请教, 报错]

@@ -1,0 +1,5 @@
+# macOS 可选依赖：图片文字识别（本机离线，走系统自带的 Vision 框架）。
+# 只给 scripts/setup.sh 在 macOS 上安装；Windows 用系统自带的 OCR，不需要这个文件。
+# 装不上也不影响其它功能：会把 media.ocr 退回「跳过」，或改用「视觉模型」模式。
+pyobjc-framework-Vision==13.0
+pyobjc-framework-Quartz==13.0

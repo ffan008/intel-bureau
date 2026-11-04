@@ -1,0 +1,36 @@
+{
+  "network": {
+    "httpServers": [
+      {
+        "name": "bureau",
+        "enable": true,
+        "host": "127.0.0.1",
+        "port": 3010,
+        "enableCors": false,
+        "enableWebsocket": false,
+        "messagePostFormat": "array",
+        "token": "<换成你自己的随机 token>",
+        "debug": false
+      }
+    ],
+    "httpSseServers": [],
+    "httpClients": [
+      {
+        "name": "bureau-ingest",
+        "enable": false,
+        "url": "http://127.0.0.1:8765/api/ingest/onebot",
+        "messagePostFormat": "array",
+        "reportSelfMessage": false,
+        "token": "<与上面相同的 token，用于生成 X-Signature>",
+        "debug": false
+      }
+    ],
+    "websocketServers": [],
+    "websocketClients": [],
+    "plugins": []
+  },
+  "musicSignUrl": "",
+  "enableLocalFile2Url": false,
+  "parseMultMsg": false,
+  "imageDownloadProxy": ""
+}
